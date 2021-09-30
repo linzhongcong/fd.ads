@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ads-fandow-com
+  labels:
+    app: ads-fandow-com
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ads-fandow-com
+  template:
+    metadata:
+      labels:
+        app: ads-fandow-com
+    spec:
+      imagePullSecrets:
+      - name: mirror-registry-aliyun
+      containers:
+      - name: ads-fandow-com
+        imagePullPolicy: IfNotPresent
+        image: ${DOCKER_REPO}
+        env:
+          - name: EXECUTABLE
+            value: "starttest"
+        ports:
+          - name: node-port
+            containerPort: 3000
+            protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ads-fandow-com-srv
+spec:
+  selector:
+    app: ads-fandow-com
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ads-fandow-com-ingress
+spec:
+  rules:
+    - host: adstest.fandow.com
+      http:
+        paths:
+          - backend:
+              serviceName: ads-fandow-com-srv
+              servicePort: 3000
+            path: /

@@ -1,0 +1,35 @@
+{
+  "name": "ads",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3096 nuxt",
+    "build": "nuxt build",
+    "build-env": "cross-env NODE_ENV=production HOST=0.0.0.0 PORT=3000 node server/build.env.js",
+    "build-env-test": "cross-env NODE_ENV=test HOST=0.0.0.0 PORT=3000 node server/build.env.js",
+    "build-env-qa": "cross-env NODE_ENV=qa HOST=0.0.0.0 PORT=3000 node server/build.env.js",
+    "start": "cross-env NODE_ENV=production HOST=0.0.0.0 PORT=3000 node server/index.js",
+    "starttest": "cross-env NODE_ENV=test HOST=0.0.0.0 PORT=3000 node server/index.js",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@antv/g2plot": "^2.3.13",
+    "@babel/core": "^7.12.3",
+    "@nuxtjs/axios": "^5.3.6",
+    "ant-design-vue": "^1.6.5",
+    "core-js": "^3.6.5",
+    "cross-env": "^7.0.2",
+    "echarts": "^5.1.1",
+    "js-cookie": "^2.2.1",
+    "koa": "^2.11.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.2",
+    "moment": "^2.29.1",
+    "nuxt": "^2.14.6",
+    "vue-draggable-resizable": "^2.3.0",
+    "vuedraggable": "^2.24.3"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.3"
+  }
+}

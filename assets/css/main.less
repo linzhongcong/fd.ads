@@ -1,0 +1,107 @@
+.main {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+
+  &-header-con {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 64px;
+    box-shadow: 0 8px 16px #d8dded;
+    z-index: 10;
+    background-color: #fff;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .navicon-con {
+      width: 175px;
+      text-align: center;
+
+      img {
+        // height: 29px;
+        width: 140px;
+      }
+    }
+
+    .menu-con {
+      display: flex;
+      margin-left: 50px;
+
+      .ant-menu {
+        border-bottom: none;
+        font-size: 16px;
+        margin: 0 15px;
+      }
+
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  &-content {
+    display: flex;
+    padding-top: 64px;
+
+    @media screen and (min-width: 1700px) {
+      height: 100%;
+      max-height: 100vh;
+      overflow: hidden;
+    }
+
+    .content-menu-slide {
+      position: relative;
+      left: 0;
+      min-width: 160px;
+      background: #fff;
+      border-right: 1px solid #eef0f3;
+      -webkit-box-shadow: 0 3px 6px 0 rgba(20, 28, 40, 0.1);
+      box-shadow: 0 3px 6px 0 rgba(20, 28, 40, 0.1);
+      padding-top: 20px;
+      // transition: all 0.3s linear;
+      // animation: scrollMenu 0.3s forwards;
+    }
+
+    // 左侧菜单滑动，解决页面切换闪烁问题
+    @keyframes scrollMenu {
+      0% {
+        width: 0;
+        left: -210px;
+      }
+
+      10% {
+        width: 100px;
+        left: -100px;
+      }
+
+      100% {
+        width: 210px;
+        left: 0;
+      }
+    }
+
+    .container {
+      width: 100%;
+      position: relative;
+      height: 100%;
+      transition: all 0.3s linear;
+    }
+  }
+}
+
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+  left: 0 !important;
+}

@@ -1,0 +1,138 @@
+.form-component_element {
+	background: #fff;
+	margin-bottom: 16px;
+	position: relative;
+	min-width: 1130px;
+	padding: 32px 24px 48px 32px;
+	border-radius: 4px;
+	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.05);
+}
+.element-style {
+	width: 60px;
+	margin-right: 40px;
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	color: rgba(0, 0, 0, 0.85);
+	font-feature-settings: 'tnum', "tnum";
+}
+.component-element_letter {
+	font-size: 22px;
+	margin-bottom: 32px;
+}
+.component-element_adname {
+	position: relative;
+	font-size: 14px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+.strong-letter {
+	font-weight: 700;
+}
+.hint-item {
+	width: 24px;
+	min-width: 24px;
+	height: 20px;
+	display: inline-block;
+}
+.hint-item_line {
+	line-height: 40px;
+}
+.required-style {
+	width: 4px;
+	height: 4px;
+	border-radius: 2px;
+	background: #f45858;
+	position: absolute;
+	right: -28px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.popover-style_reset {
+	border: none;
+	padding: 0;
+	height: 0;
+}
+.popover-content {
+	width: 410px;
+	padding: 16px;
+}
+.popover-title {
+	font-size: 14px;
+	line-height: 22px;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: #333;
+}
+.popover-letter {
+	font-size: 12px;
+	line-height: 22px;
+	white-space: normal;
+	color: #666;
+}
+.last-component_element {
+	padding: 32px;
+}
+.function-component_element {
+	padding: 16px 32px 16px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.warning-icon {
+	color: #f9ad14;
+}
+
+.line-ceil_style {
+	display: flex;
+}
+
+.margin-top-30 {
+	margin-top: 30px;
+}
+
+.margin-top-32 {
+	margin-top: 32px;
+}
+
+/deep/ .ant-form-item-required::before {
+	display: none;
+	margin-right: 0;
+	color: none;
+	font-size: 0px;
+	font-family: none;
+	line-height: 1;
+	content: '';
+}
+/deep/ .ant-form-item label {
+	display: inline-block;
+	position: relative;
+	width: 100px;
+}
+/deep/ .ant-form-item-label label::after {
+	content: '';
+}
+/deep/ .ant-form-item-label .ant-form-item-required::after {
+	display: inline-block;
+	color: #f5222d;
+	position: absolute;
+	right: 6px;
+	top: 30%;
+	font-size: 18px;
+	margin: 0;
+	font-family: SimSun, sans-serif;
+	line-height: 1;
+	content: '·';
+}
+/deep/ .ant-col-3 {
+	width: 100px;
+	word-wrap: break-word;
+}
+/deep/ .has-error .ant-form-explain {
+	width: 420px;
+}
+/deep/ .ant-form-item-label {
+	text-align: left;
+}
