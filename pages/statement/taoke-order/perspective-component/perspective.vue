@@ -1,7 +1,7 @@
 <!--
  * @Author: huangjianhan
  * @Date: 2021-04-27 11:21:07
- * @LastEditTime: 2021-05-14 10:21:12
+ * @LastEditTime: 2021-08-09 15:29:42
  * @LastEditors: Please set LastEditors
  * @Description: 推广位透视图
  * @FilePath: \ads.fandow.com\pages\statement\taoke-order\perspective-component\perspective.vue
@@ -63,7 +63,6 @@
     methods: {
       // 初始化函数
       async initData() {
-        console.log(this.searchData)
         let emptyField = []
         let fieldLetter = {
           queryParam: '数据指标',
@@ -249,8 +248,8 @@
               xAxisIndex: 0,
               filterMode: 'none',
               brushSelect: false,
-              start: 0,
-              end: 50,
+              start: 90,
+              end: 100,
               minSpan: 10,
             },
             {
@@ -381,11 +380,12 @@
           dataZoom: [
             {
               type: 'slider',
-              xAxisIndex: 0,
+              show: true,
               filterMode: 'none',
               brushSelect: false,
-              start: 0,
-              end: 15,
+              xAxisIndex: [0],
+              start: 80,
+              end: 100,
               minSpan: 6,
             },
             {

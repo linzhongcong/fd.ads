@@ -1,7 +1,7 @@
 <!--
  * @Author: lizheng
  * @Date: 2021-04-07 13:18:09
- * @LastEditTime: 2021-07-20 16:14:47
+ * @LastEditTime: 2021-07-24 16:42:45
  * @LastEditors: Please set LastEditors
  * @Description: 新建广告计划 - 投放时间段
  * @FilePath: \ads\components\select-table-time.vue
@@ -116,7 +116,7 @@
         let dataArr = Object.keys(viewDate)
           .map((k) => viewDate[k])
           .sort((a, b) => Number(a[0]) - Number(b[0]))
-
+        console.log(dataArr)
         dataArr.forEach((ele, key) => {
           let firstTime = '',
             endTime = ''
@@ -129,12 +129,10 @@
           ele.forEach((element, index) => {
             if (!index) return
             // 如果该值是最后一个的话 那直接将endTime设置为最后一个时间值
+            endTime = element.split('~')[1]
             if (index === ele.length - 1) {
-              endTime = element.split('~')[1]
               return
             }
-            // 没有其余情况 则直接设置值
-            endTime = element.split('~')[1]
 
             // 判断是否是连续的时间值
             if (endTime !== ele[index + 1].split('~')[0]) {
@@ -150,17 +148,20 @@
           })
         })
 
+        // 将选中的单元格转换成后端需要的01数据
         let tableDom = document.getElementsByClassName('calendar-time')
-        tableDom.forEach((element, index) => {
+        tableDom.forEach((element) => {
           if (element.className.indexOf('bg') !== -1) {
             passVal += '1'
           } else {
             passVal += '0'
           }
         })
+
         // 传递至父组件
         this.passValToParent(passVal)
 
+        // 更新视图
         this.viewDateArr = viewDateArr
       },
     },
@@ -195,6 +196,7 @@
         cellList.forEach((item) => item.classList.remove('bg'))
       },
 
+      // 鼠标移动 主要是进行边界值处理
       onMousemove(e) {
         e.preventDefault()
         if (!this.isMousedown) return false
@@ -249,16 +251,16 @@
         }
       },
 
-      // 鼠标按下事件
+      // 鼠标按下事件 主要是进行选中框的样式处理 和 矩形初始坐标值存储
       onMousedown(e) {
         e.preventDefault()
         this.isMousedown = true
         if (e.target.dataset.id) {
-          let { clientX, clientY } = e
+          let { pageX, pageY, clientX, clientY } = e
 
-          // 存储最后一次在时间选择中的值
-          this.left = e.pageX
-          this.top = e.pageY
+          // 存储最后一次在时间选择中的值 设置选中矩形的初始位置
+          this.left = pageX
+          this.top = pageY
           this.clientX = clientX
           this.clientY = clientY
           // 判断滑动方向
@@ -279,6 +281,7 @@
         }
       },
 
+      // 鼠标松开事件 主要是获取鼠标在哪个td标签松开的坐标点 然后在表格中设置对应选中的单元格
       onMouseup(e) {
         e.preventDefault()
         if (this.isMousedown && this.isMouseMove && e.target.dataset.id) {
@@ -378,7 +381,7 @@
         }
 
         // 去重
-        this.dateTimeId = [...new Set(this.dateTimeId)]
+        // this.dateTimeId = [...new Set(this.dateTimeId)]
 
         /**
          * 获取鼠标按下的第一个元素的状态

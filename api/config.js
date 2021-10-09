@@ -1,7 +1,7 @@
 /*
  * @Author: liyulin
  * @Date: 2021-01-15 17:20:22
- * @LastEditTime: 2021-07-22 16:52:55
+ * @LastEditTime: 2021-07-29 14:42:34
  * @LastEditors: Please set LastEditors
  * @Description: 接口配置，api服务器接口根地址,配置编译环境和线上环境之间的切换
  * @FilePath: \oms\api\config.js
@@ -20,13 +20,15 @@ if (ENV === 'production') {
 } else if (ENV === 'test') {
   console.log('---- test ----')
   baseUrl = 'http://apitest.fandow.com/test/ads'
+  // baseUrl = 'http://aijiangyoubuaicu.cn1.utools.club'
+  // fileUrl = 'http://kongtest.fandow.com/test/ads'
   fileUrl = 'http://apitest.fandow.com/test/ads'
+  // hrmBaseUrl = 'http://kongtest.fandow.com/oa'
   hrmBaseUrl = 'http://apitest.fandow.com/oa'
-
 } else {
   console.log('---- develop ----')
   // baseUrl = 'http://apitest.fandow.com/ads'
-  baseUrl = 'http://apitest.fandow.com/ads'
+  baseUrl = 'http://apitest.fandow.com/test/ads'
   fileUrl = 'http://kongtest.fandow.com/ads'
   hrmBaseUrl = 'http://kongtest.fandow.com/oa'
 }

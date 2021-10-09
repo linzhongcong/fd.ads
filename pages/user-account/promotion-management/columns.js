@@ -42,7 +42,7 @@ export const promotionPositionColumns = [
     title: '操作',
     dataIndex: 'operate',
     key: 'operate',
-    width: 100,
+    width: 180,
     scopedSlots: { customRender: 'operate' },
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
@@ -85,3 +85,73 @@ export const settingColumns = [
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
 ]
+
+
+export const relationPlanTable = [
+  {
+    title: '序号',
+    dataIndex: 'order',
+    key: 'order',
+    ellipsis: true,
+    width: 40,
+    customRender: (text, record, idx) => ++idx,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '计划ID',
+    dataIndex: 'planID',
+    key: 'planID',
+    ellipsis: true,
+    width: 110,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '计划名称',
+    dataIndex: 'planName',
+    key: 'planName',
+    ellipsis: true,
+    width: 110,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '开始时间',
+    dataIndex: 'startTime',
+    key: 'startTime',
+    ellipsis: true,
+    width: 140,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '结束时间',
+    dataIndex: 'endTime',
+    key: 'endTime',
+    ellipsis: true,
+    width: 140,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 60,
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+]
+
+export const relationPlanData = [
+  {
+    key: '1',
+    planID: '111',
+    planName: '计划名称A',
+    startTime: '日期：2021-10-01 时段：00',
+    endTime: '日期：2021-10-01 时段：23',
+  },
+  {
+    key: '2',
+    planID: '222',
+    planName: '计划名称B',
+    startTime: '日期：2021-10-03 时段：00',
+    endTime: '日期：2021-10-03 时段：23',
+  },
+];

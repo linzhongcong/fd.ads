@@ -31,7 +31,7 @@ export default {
       return false
     }
   },
-  showThisRoute(itAccess, currentAccess) {
+  showThisRoute (itAccess, currentAccess) {
     if (typeof itAccess === 'object' && Array.isArray(itAccess)) {
       return this.oneOf(currentAccess, itAccess)
     } else {
@@ -53,7 +53,7 @@ export const unique = (array) => {
 // 函数防抖
 export const debounce = (func, wait, immediately = false) => {
   let timer
-  let debounced = function(...args) {
+  let debounced = function (...args) {
     let result
     // 清除闹钟后，闹钟还是存在的
     if (timer) clearTimeout(timer)
@@ -66,7 +66,7 @@ export const debounce = (func, wait, immediately = false) => {
     }
     return result
   }
-  debounced.cancel = function() {
+  debounced.cancel = function () {
     clearTimeout(timer)
     timer = null
   }
@@ -186,7 +186,7 @@ export const setDayRangeMaping = (sum) => {
   }
 }
 
-/** 
+/**
  * 时间段映射
  * 投放时段，默认全时段投放，格式是48*7位字符串，且都是0或1。
  * 也就是以半个小时为最小粒度，周一至周日每天分为48个区段，0为不投放，1为投放，不传、全传0、全传1均代表全时段投放。
