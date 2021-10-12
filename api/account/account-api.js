@@ -103,6 +103,33 @@ const deletePromoter = (id) => {
   })
 }
 
+// 推广位 - 关联计划
+const getRelevancyPlan = (params) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'GET',
+    params,
+  })
+}
+
+// 推广位 - 关联计划 - 搜索计划id/名称
+const searchPlan = (params) => {
+  return fetch({
+    url: '/promoter/ad/query',
+    method: 'GET',
+    params
+  })
+}
+
+// 推广位 - 关联计划 - 新增
+const postPlan = (data) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'POST',
+    data
+  })
+}
+
 // 产品 - 分页列表查询
 const getProduct = (params) => {
   return fetch({
@@ -242,6 +269,9 @@ export default {
   postPromoter,
   putPromoter,
   deletePromoter,
+  getRelevancyPlan,
+  searchPlan,
+  postPlan,
 
   getProduct,
   getProductDetail,
