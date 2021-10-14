@@ -141,19 +141,19 @@ export const relationPlanTable = [
   },
 ]
 
-export const relationPlanData = [
-  {
-    key: '1',
-    planID: '111',
-    planName: '计划名称A',
-    startTime: '日期：2021-10-01 时段：00',
-    endTime: '日期：2021-10-01 时段：23',
-  },
-  {
-    key: '2',
-    planID: '222',
-    planName: '计划名称B',
-    startTime: '日期：2021-10-03 时段：00',
-    endTime: '日期：2021-10-03 时段：23',
-  },
-];
+// export const relationPlanData = [
+//   {
+//     key: '1',
+//     planID: '111',
+//     planName: '计划名称A',
+//     startTime: '日期：2021-10-01 时段：00',
+//     endTime: '日期：2021-10-01 时段：23',
+//   },
+//   {
+//     key: '2',
+//     planID: '222',
+//     planName: '计划名称B',
+//     startTime: '日期：2021-10-03 时段：00',
+//     endTime: '日期：2021-10-03 时段：23',
+//   },
+// ];
