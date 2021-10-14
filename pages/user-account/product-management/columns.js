@@ -32,6 +32,14 @@ export const productColumns = [
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
   {
+    title: '店铺名称',
+    dataIndex: 'shopName',
+    key: 'shopName',
+    width: 250,
+    ellipsis: true,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
     title: '关联的广告投放账号',
     dataIndex: 'adId',
     key: 'adId',

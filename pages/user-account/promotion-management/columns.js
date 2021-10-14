@@ -99,34 +99,36 @@ export const relationPlanTable = [
   },
   {
     title: '计划ID',
-    dataIndex: 'planID',
-    key: 'planID',
+    dataIndex: 'adId',
+    key: 'adId',
     ellipsis: true,
     width: 110,
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
   {
     title: '计划名称',
-    dataIndex: 'planName',
-    key: 'planName',
+    dataIndex: 'adName',
+    key: 'adName',
     ellipsis: true,
     width: 110,
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
   {
     title: '开始时间',
-    dataIndex: 'startTime',
-    key: 'startTime',
+    dataIndex: 'startDate',
+    key: 'startDate',
     ellipsis: true,
     width: 140,
+    scopedSlots: { customRender: 'startDate' },
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
   {
     title: '结束时间',
-    dataIndex: 'endTime',
-    key: 'endTime',
+    dataIndex: 'endDate',
+    key: 'endDate',
     ellipsis: true,
     width: 140,
+    scopedSlots: { customRender: 'endDate' },
     customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
   },
   {
@@ -139,19 +141,19 @@ export const relationPlanTable = [
   },
 ]
 
-export const relationPlanData = [
-  {
-    key: '1',
-    planID: '111',
-    planName: '计划名称A',
-    startTime: '日期：2021-10-01 时段：00',
-    endTime: '日期：2021-10-01 时段：23',
-  },
-  {
-    key: '2',
-    planID: '222',
-    planName: '计划名称B',
-    startTime: '日期：2021-10-03 时段：00',
-    endTime: '日期：2021-10-03 时段：23',
-  },
-];
+// export const relationPlanData = [
+//   {
+//     key: '1',
+//     planID: '111',
+//     planName: '计划名称A',
+//     startTime: '日期：2021-10-01 时段：00',
+//     endTime: '日期：2021-10-01 时段：23',
+//   },
+//   {
+//     key: '2',
+//     planID: '222',
+//     planName: '计划名称B',
+//     startTime: '日期：2021-10-03 时段：00',
+//     endTime: '日期：2021-10-03 时段：23',
+//   },
+// ];

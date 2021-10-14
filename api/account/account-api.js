@@ -103,12 +103,75 @@ const deletePromoter = (id) => {
   })
 }
 
+// 推广位 - 关联计划
+const getRelevancyPlan = (params) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'GET',
+    params,
+  })
+}
+
+// 推广位 - 关联计划 - 搜索计划id/名称
+const searchPlan = (params) => {
+  return fetch({
+    url: '/promoter/ad/query',
+    method: 'GET',
+    params
+  })
+}
+
+// 推广位 - 关联计划 - 新增
+const postPlan = (data) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'POST',
+    data
+  })
+}
+
+// 推广位 - 关联计划 - 获取编辑数据
+const getEditForm = (relatedId) => {
+  return fetch({
+    url: `/promoter/related/ad/${relatedId}`,
+    method: 'GET',
+  })
+}
+
+// 推广位 - 关联计划 - 提交编辑
+const putEdit = (data) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'PUT',
+    data,
+  })
+}
+
+
+// 推广位 - 关联计划 - 删除关联
+const deleteRelation = (params) => {
+  return fetch({
+    url: '/promoter/related/ad',
+    method: 'DELETE',
+    params
+  })
+}
+
+
 // 产品 - 分页列表查询
 const getProduct = (params) => {
   return fetch({
     url: '/product',
     method: 'GET',
     params,
+  })
+}
+
+// 搜索店铺
+const getShopName = (shopName) => {
+  return fetch({
+    url: `/product/shop/${shopName}`,
+    method: 'GET',
   })
 }
 
@@ -242,8 +305,15 @@ export default {
   postPromoter,
   putPromoter,
   deletePromoter,
+  getRelevancyPlan,
+  searchPlan,
+  postPlan,
+  getEditForm,
+  putEdit,
+  deleteRelation,
 
   getProduct,
+  getShopName,
   getProductDetail,
   postProduct,
   putProduct,

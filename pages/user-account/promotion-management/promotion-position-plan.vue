@@ -7,25 +7,36 @@
              width="60%">
       <a-row>
         <a-col :span="12">
-          <span class="mr"><span class="fw">推广位：</span>{{ rowData.promoterId }}</span>
-          <span><span class="fw">推广位名称：</span>{{ rowData.promoterName }}</span>
+          <span class="mr">
+            <span class="fw">推广位：</span>
+            {{ rowData.promoterId }}
+          </span>
+          <span>
+            <span class="fw">推广位名称：</span>
+            {{ rowData.promoterName }}
+          </span>
         </a-col>
       </a-row>
       <!-- 筛选 -->
       <a-row class="mt">
-        <a-col :span="22">
+        <a-col :span="21">
           <span>计划：</span>
-          <a-select v-model="screenData.plan"
+          <a-select v-model.trim="screenData.adId"
                     show-search
                     allow-clear
+                    option-label-prop="label"
                     @search="(value) => productionFuzzySearch(value, 'planSearch')"
+                    @change="changePlanName"
                     placeholder="计划ID/计划名称"
                     style="width: 20%">
-            <a-select-option v-for="(item, key) in planSearch"
-                             :value="item.productId"
-                             :key="item.productId"
-                             :label="item.productId">
-              {{ item.product }}
+            <a-spin v-if="fetching"
+                    slot="notFoundContent"
+                    size="small" />
+            <a-select-option v-for="item in planSearch"
+                             :value="item.ad"
+                             :key="item.adId"
+                             :label="item.name">
+              {{ item.ad }}
             </a-select-option>
           </a-select>
           <span class="ml">日期：</span>
@@ -36,30 +47,45 @@
                           show-time
                           format="YYYY.MM.DD HH:mm:ss"
                           separator="至"
-                          style="width:40%"
+                          style="width: 40%"
                           @change="changeDatePick">
             <a-icon slot="suffixIcon"
                     type="calendar" />
           </a-range-picker>
           <a-button type="primary"
-                    class="ml">查询</a-button>
+                    class="ml"
+                    @click="getPlanForm('init')">查询</a-button>
         </a-col>
-        <a-col :span="2">
+        <a-col :span="3">
           <a-button type="primary"
+                    class="newAdd"
                     icon="plus"
-                    @click="operationMode('operationForm', 'add')">新建</a-button>
+                    @click="operationMode('operationForm', 'add')">
+            新建
+          </a-button>
         </a-col>
       </a-row>
       <!-- 表格 -->
       <a-table :columns="relationPlanTable"
                :data-source="relationPlanData"
-               :row-key="(record) => record.key"
+               :row-key="(record) => record.id"
+               :loading="loadingTable"
                :scroll="{ y: 520 }"
                size="small"
                :pagination="pagination"
                @change="changePage"
                bordered
                class="mt">
+        <template slot="startDate"
+                  slot-scope="text, record, index"
+                  style="display: flex">
+          <span>日期：{{record.startDate}} 时段：{{filterHour(record.startHour)}}</span>
+        </template>
+        <template slot="endDate"
+                  slot-scope="text, record, index"
+                  style="display: flex">
+          <span>日期：{{record.endDate}} 时段：{{filterHour(record.endHour)}}</span>
+        </template>
         <template slot="operate"
                   slot-scope="text, record, index"
                   style="display: flex">
@@ -78,28 +104,36 @@
                       :rules="formRules"
                       :label-col="{ span: 4 }"
                       :wrapper-col="{ span: 12 }">
+
           <a-form-model-item label="计划"
-                             prop="plan">
-            <a-select v-model="formData.plan"
+                             prop="adId">
+            <a-select v-model="formData.adId"
+                      ref="planItem"
                       show-search
                       allow-clear
-                      @search="(value) => productionFuzzySearch(value, 'planSearch','popup')"
+                      option-label-prop="label"
+                      @search="(value) => productionFuzzySearch(value, 'selectPlan')"
+                      @change="changeModePlan"
                       placeholder="计划ID/计划名称"
                       style="width: 180px">
-              <a-select-option :value="item.val"
-                               v-for="(item, key) in planSearch"
-                               :key="key">
-                {{ item.label }}
+              <a-spin v-if="fetching"
+                      slot="notFoundContent"
+                      size="small" />
+              <a-select-option v-for="item in selectPlan"
+                               :value="item.ad"
+                               :key="item.adId"
+                               :label="item.name">
+                {{ item.ad }}
               </a-select-option>
             </a-select>
           </a-form-model-item>
 
           <a-form-model-item label="开始时间"
-                             prop="startTime">
-            <a-date-picker v-model="formData.startTime"
+                             prop="startDate">
+            <a-date-picker v-model="formData.startDate"
                            format="YYYY-MM-DD"
                            value-format="YYYY-MM-DD" />
-            <a-select v-model="formData.startInterval"
+            <a-select v-model="formData.startHour"
                       placeholder="时段"
                       style="width: 80px"
                       class="ml">
@@ -112,12 +146,11 @@
           </a-form-model-item>
 
           <a-form-model-item label="结束时间"
-                             prop="entTime"
-                             class="aa">
-            <a-date-picker v-model="formData.entTime"
+                             prop="endDate">
+            <a-date-picker v-model="formData.endDate"
                            format="YYYY-MM-DD"
                            value-format="YYYY-MM-DD" />
-            <a-select v-model="formData.entInterval"
+            <a-select v-model="formData.endHour"
                       placeholder="时段"
                       style="width: 80px"
                       class="ml">
@@ -128,36 +161,37 @@
               </a-select-option>
             </a-select>
           </a-form-model-item>
+          <a-spin class="loading-wrap"
+                  :spinning="modeLoading"
+                  :style="{ display: modeLoading ? 'flex' : 'none' }" />
         </a-form-model>
-        <!-- 自定义页脚 -->
+        <!-- 自定义页脚 - 新增、编辑 -->
         <template slot="footer">
           <a-button key="back"
-                    @click="closeMode('openOperation')"> 取消 </a-button>
+                    @click="closeMode('openOperation')">取消</a-button>
           <a-button key="submit"
                     type="primary"
-                    @click="submit('openOperation')">
-            提交
-          </a-button>
+                    :loading="btnLoading"
+                    @click="submit('openOperation')">提交</a-button>
         </template>
       </a-modal>
-      <!-- 自定义页脚 -->
+      <!-- 自定义页脚 - 关联计划 -->
       <template slot="footer">
         <a-button key="back"
-                  @click="closeMode('openPopup')"> 取消 </a-button>
+                  @click="closeMode('openPopup')">取消</a-button>
         <a-button key="submit"
                   type="primary"
-                  @click="submit('openPopup')">
-          提交
-        </a-button>
+                  class="footer"
+                  @click="submit('openPopup')">提交</a-button>
       </template>
     </a-modal>
   </div>
 </template>
 
 <script>
-import { log } from '@antv/g2plot/lib/utils';
+import { log } from '@antv/g2plot/lib/utils'
 import { getDateRange, debounce } from '~/utils/utils'
-import { relationPlanTable, relationPlanData } from "./columns";
+import { relationPlanTable } from './columns'
 export default {
   props: {
     rowData: {
@@ -168,23 +202,26 @@ export default {
     this.productionFuzzySearch = debounce(this.productionFuzzySearch, 500)
     let startDataRule = (rule, value, callback) => {
       if (value === '' || value === null) {
-        callback(new Error('请选择开始日期'))
-      }
-      else if (this.formData.startTime === '' || this.formData.startInterval === '') {
-        callback(new Error('请选择开始日期'))
-      }
-      else {
+        callback(new Error('请选择开始时间'))
+      } else if (this.formData.startDate === '' || this.formData.startHour === '') {
+        callback(new Error('请选择开始时间'))
+      } else if (this.nullValue) {
+        callback(new Error('请选择开始时间'))
+      } else {
         callback()
       }
     }
     let entDataRule = (rule, value, callback) => {
       if (value === '' || value === null) {
-        callback(new Error('请选择结束日期'))
-      }
-      else if (this.formData.entTime === '' || this.formData.entInterval === '') {
-        callback(new Error('请选择结束日期'))
-      }
-      else {
+        callback(new Error('请选择结束时间'))
+      } else if (this.formData.endDate === '' || this.formData.endHour === '') {
+        callback(new Error('请选择结束时间'))
+      } else if (this.nullValue) {
+        callback(new Error('请选择结束时间'))
+      } else if (this.triggerRules) {
+        callback(new Error('结束时间不能小于开始时间'))
+        this.triggerRules = false
+      } else {
         callback()
       }
     }
@@ -194,14 +231,17 @@ export default {
       filterDateRange: [],
       planSearch: [],
       relationPlanTable,
-      relationPlanData,
-      deleteRowTitle: '',
+      relationPlanData: [],
+      fetching: false,
+      loadingTable: false,
+      triggerRules: false,
+      nullValue: false,
       // 分页器
       pagination: {
         size: 'small',
         total: 0,
         current: 1,
-        defaultPageSize: 10,
+        pageSize: 10,
         showSizeChanger: true,
         showQuickJumper: true,
         pageSizeOptions: ['10', '20', '50', '100'],
@@ -210,69 +250,73 @@ export default {
 
       // 新建、编辑数据
       openOperation: false,
-      operationType: "",
-      formData: {
-        startTime: '',
-        startInterval: '',
-        entTime: '',
-        entInterval: ''
-      },
+      btnLoading: false,
+      modeLoading: false,
+      operationType: '',
+      formData: {},
+      selectPlan: [],
       timeInterval: [],
       formRules: {
-        plan: [
-          { required: true, message: "请选择计划ID/计划名称", trigger: "change" },
-        ],
-        startTime: [
-          { required: true, validator: startDataRule, trigger: 'change' },
-        ],
-        entTime: [
-          { required: true, validator: entDataRule, trigger: 'change' },
-        ],
+        adId: [{ required: true, message: '请选择计划ID/计划名称', trigger: 'change' }],
+        startDate: [{ required: true, validator: startDataRule, trigger: 'change' }],
+        endDate: [{ required: true, validator: entDataRule, trigger: 'change' }],
       },
-    };
+    }
   },
   created () {
     this.range = getDateRange(this)
   },
-  // watch: {
-  //   // 日期发生改变重新调用接口
-  //   filterDateRange: {
-  //     deep: true,
-  //     immediate: true,
-  //     handler(nDate) {
-  //       this.searchObj.timeStart = nDate && nDate[0].format('YYYY-MM-DD')
-  //       this.searchObj.timeEnd = nDate && nDate[1].format('YYYY-MM-DD')
-  //     },
-  //   },
-  // }
   computed: {
     // 动态赋值时段数据
     timeSlot () {
       for (let i = 0; i < 24; i++) {
-        let index = String(i)
+        i += ''
         if (i < 10) {
-          index = 0 + index
+          i = 0 + i
         }
-        this.timeInterval.push({ label: index, value: `moment${index}` })
+        this.timeInterval.push({ label: i, value: `${i}` })
       }
-    }
+    },
   },
   methods: {
+    // 获取关联计划table数据
+    getPlanForm (type = "") {
+      this.loadingTable = true
+      let params = JSON.parse(JSON.stringify(this.screenData))
+      params.promoterId = this.rowData.promoterId
+      params.pageIndex = this.pagination.current
+      params.pageSize = this.pagination.pageSize
+      if (!params.startDate) {
+        delete params.startDate
+        delete params.endDate
+      }
+      if (type) {
+        params.pageIndex = this.pagination.current = 1;
+      }
+      this.$API.getRelevancyPlan(params).then(({ code, data }) => {
+        this.loadingTable = false
+        if (code === 0) {
+          console.log(data);
+          this.pagination.total = data.pageCount
+          this.relationPlanData = data.list
+        }
+      })
+    },
     // 模糊搜索
-    productionFuzzySearch (value, array, type) {
-      console.log(value, array, type);
-      // if (value === '' || !value.trim()) return (this.planSearch = [])
-      // this.$API
-      //   .getProductList(value.trim())
-      //   .then(({ code, data }) => {
-      //     this.fetching = false
-      //     if (code === 0) this[array] = data
-      //   })
-      //   .catch(() => (this.fetching = false))
+    productionFuzzySearch (queName, array) {
+      if (queName === '' || !queName.trim()) return (this[array] = [])
+      this.fetching = true
+      this.$API
+        .searchPlan({ queName })
+        .then(({ code, data }) => {
+          this.fetching = false
+          if (code === 0) this[array] = data
+        })
+        .catch(() => (this.fetching = false))
     },
     // 时间选择器
     changeDatePick (date) {
-      this.setDateTypeFunc('startTime', 'entTime', date)
+      this.setDateTypeFunc('startDate', 'endDate', date)
     },
     // 时间赋值公用函数
     setDateTypeFunc (...rest) {
@@ -283,35 +327,60 @@ export default {
         this.screenData[rest[0]] = ''
         this.screenData[rest[1]] = ''
       }
-      console.log(this.screenData);
     },
-
+    // 计划名称选择
+    changePlanName (value) {
+      console.log(value);
+      this.planSearch.map((item) => {
+        if ([item.ad, item.adId, item.name].includes(value)) this.screenData.adId = item.adId
+      })
+    },
+    // 弹窗计划名称选择
+    changeModePlan (value) {
+      this.selectPlan.map((item) => {
+        if ([item.ad, item.adId, item.name].includes(value)) this.formData.adId = item.adId
+      })
+    },
+    // 分页
     changePage (page) {
       this.pagination.current = page.current
       this.pagination.pageSize = page.pageSize
       this.relationPlanData = []
+      this.getPlanForm()
     },
     // 弹窗
     operationMode (prop, type, data) {
-      this.timeSlot
       if (prop === 'openPopup') {
         this.openPopup = true
         this.screenData = {}
-      }
-      else if (prop === 'operationForm') {
-        this.openOperation = true;
-        this.operationType = type;
+        this.planSearch = []
+        this.filterDateRange = []
+        this.relationPlanData = []
+        this.getPlanForm()
+      } else if (prop === 'operationForm') {
+        this.openOperation = true
+        this.operationType = type
+        this.timeSlot
         // 解决每次进来清空表单
         if (this.$refs[prop] !== undefined) {
-          this.$refs[prop].resetFields();
-          this.formData = {
-            startTime: '',
-            startInterval: '',
-            entTime: '',
-            entInterval: ''
-          };
+          this.$refs[prop].resetFields()
+          this.formData = {}
+          this.selectPlan = []
+        }
+        if (prop === 'operationForm' && type === 'edit') {
+          this.getEdit(data)
         }
       }
+    },
+    // 获取编辑数据
+    getEdit ({ id }) {
+      this.modeLoading = true
+      this.$API.getEditForm(id).then(({ code, data }) => {
+        if (code === 0) {
+          this.modeLoading = false
+          this.formData = data
+        }
+      })
     },
     // 关闭
     closeMode (type) {
@@ -324,55 +393,94 @@ export default {
     // 提交
     submit (type) {
       if (type === 'openPopup') {
-        console.log(this.screenData);
-      }
-      else if (type === 'openOperation') {
-        this.compareDate(this.formData.startTime, this.formData.entTime, this.formData.startInterval, this.formData.entInterval)
-        this.$refs.operationForm.validate((vaild) => {
-          console.log(this.formData);
-          if (!vaild) return
+        console.log(this.screenData)
+        this.openPopup = false
+      } else if (type === 'openOperation') {
+        this.compareDate(this.formData)
+        const methodName = this.operationType === 'add' ? 'postPlan' : 'putEdit'
 
+        this.$refs.operationForm.validate((vaild) => {
+          if (!vaild) return
+          this.btnLoading = true
+          let params = JSON.parse(JSON.stringify(this.formData))
+          // console.log(params);
+          params.promoterId = this.rowData.promoterId
+          params.promoterName = this.rowData.promoterName
+          // console.log(params);
+          this.$API[methodName](params).then(({ code, data, msg }) => {
+            if (code === 0) {
+              this.$message.success('新建成功', 1.5)
+              this.btnLoading = false
+              this.openOperation = false
+              this.getPlanForm()
+              return
+            }
+            this.$message.error(msg)
+            this.btnLoading = false
+            this.openOperation = false
+          })
+            .catch(() => {
+              this.btnLoading = false
+              this.openOperation = false
+            })
         })
       }
     },
     // 比较日期
-    compareDate (startTime, entTime, startInterval, entInterval) {
-      let oneDate = new Date(startTime);
-      var twoDate = new Date(entTime);
-      if (oneDate.getTime() > twoDate.getTime() || entInterval < startInterval) {
-        console.log('第二个大');
-      } else {
-        console.log('第一个大');
+    compareDate ({ startDate, endDate, startHour, endHour }) {
+      this.nullValue = false
+      if (!startDate || !startHour || !endDate || !endHour) {
+        this.nullValue = true
+        return false
+      }
+      let oneDate = new Date(startDate)
+      var twoDate = new Date(endDate)
+      let SI = startHour.substring(6, 8)
+      let EI = endHour.substring(6, 8)
+      if (
+        oneDate.getTime() > twoDate.getTime() ||
+        (oneDate.getTime() === twoDate.getTime() && SI >= EI)
+      ) {
+        this.triggerRules = true
       }
     },
-    // 删除某条商品信息
-    deletePromotionItem ({ planID }) {
+    filterHour (value) {
+      return value < 10 ? `0${value}` : value
+    },
+    // 删除某条计划
+    deletePromotionItem ({ id, adId, startDate, endDate, startHour, endHour }) {
       const that = this
       this.$confirm({
         icon: 'exclamation-circle',
         title: (h) => (
           <div>
-            <p>
-              确定要删除?
-            </p>
-            <p>计划：{planID}</p>
+            <p>确定要删除?</p>
+            <p>计划：{adId}</p>
+            <p>关联时段：{startDate} {startHour} ~ {endDate} {endHour}</p>
           </div>
         ),
-        // onOk () {
-        //   that.$API.deletePromoter(id).then(({ code, data }) => {
-        //     if (code === 0) {
-        //       that.$message.success(data)
-        //       that.getInitData()
-        //     }
-        //   })
-        // },
+        onOk () {
+          let params = { id, adId }
+          that.$API.deleteRelation(params).then(({ code, data }) => {
+            if (code === 0) {
+              that.$message.success(data)
+              that.getPlanForm()
+            }
+          })
+        },
       })
-    }
+    },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
+.footer {
+  margin-right: 8px;
+}
+.newAdd {
+  margin-left: 26px;
+}
 .mt {
   margin-top: 25px;
 }
@@ -384,5 +492,17 @@ export default {
 }
 .fw {
   font-weight: bold;
+}
+.loading-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 30%;
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 100%, 0.9);
 }
 </style>
