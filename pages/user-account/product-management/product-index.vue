@@ -33,7 +33,8 @@
                      @change="(e) => !e.target.value && this.getInitData('init')" />
           </a-form-model-item>
           <a-form-model-item label="店铺名称">
-            <a-select show-search
+            <a-select v-model="filterForm.shopId"
+                      show-search
                       allow-clear
                       option-label-prop="label"
                       @search="(value) => productionFuzzySearch(value, 'allShop')"

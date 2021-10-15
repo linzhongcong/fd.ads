@@ -28,7 +28,8 @@
                     @search="(value) => productionFuzzySearch(value, 'planSearch')"
                     @change="changePlanName"
                     placeholder="计划ID/计划名称"
-                    style="width: 20%">
+                    style="width: 38%"
+                    dropdownClassName="select-drop-down">
             <a-spin v-if="fetching"
                     slot="notFoundContent"
                     size="small" />
@@ -44,10 +45,9 @@
                           :ranges="range"
                           :disabled-date="(current) => current && current > this.moment().endOf('day')"
                           :allow-clear="true"
-                          show-time
-                          format="YYYY.MM.DD HH:mm:ss"
+                          format="YYYY.MM.DD"
                           separator="至"
-                          style="width: 40%"
+                          style="width: 28%"
                           @change="changeDatePick">
             <a-icon slot="suffixIcon"
                     type="calendar" />
@@ -115,7 +115,7 @@
                       @search="(value) => productionFuzzySearch(value, 'selectPlan')"
                       @change="changeModePlan"
                       placeholder="计划ID/计划名称"
-                      style="width: 180px">
+                      style="width: 278px">
               <a-spin v-if="fetching"
                       slot="notFoundContent"
                       size="small" />
@@ -189,7 +189,6 @@
 </template>
 
 <script>
-import { log } from '@antv/g2plot/lib/utils'
 import { getDateRange, debounce } from '~/utils/utils'
 import { relationPlanTable } from './columns'
 export default {
@@ -274,7 +273,7 @@ export default {
         if (i < 10) {
           i = 0 + i
         }
-        this.timeInterval.push({ label: i, value: `${i}` })
+        this.timeInterval.push({ label: i, value: i })
       }
     },
   },
@@ -303,11 +302,11 @@ export default {
       })
     },
     // 模糊搜索
-    productionFuzzySearch (queName, array) {
-      if (queName === '' || !queName.trim()) return (this[array] = [])
+    productionFuzzySearch (queryName, array) {
+      if (queryName === '' || !queryName.trim()) return (this[array] = [])
       this.fetching = true
       this.$API
-        .searchPlan({ queName })
+        .searchPlan({ queryName })
         .then(({ code, data }) => {
           this.fetching = false
           if (code === 0) this[array] = data
@@ -321,8 +320,8 @@ export default {
     // 时间赋值公用函数
     setDateTypeFunc (...rest) {
       if (rest[2].length) {
-        this.screenData[rest[0]] = rest[2][0].format('YYYY-MM-DD HH:mm:ss')
-        this.screenData[rest[1]] = rest[2][1].format('YYYY-MM-DD HH:mm:ss')
+        this.screenData[rest[0]] = rest[2][0].format('YYYY-MM-DD')
+        this.screenData[rest[1]] = rest[2][1].format('YYYY-MM-DD')
       } else {
         this.screenData[rest[0]] = ''
         this.screenData[rest[1]] = ''
@@ -337,8 +336,10 @@ export default {
     },
     // 弹窗计划名称选择
     changeModePlan (value) {
+      console.log(value);
       this.selectPlan.map((item) => {
         if ([item.ad, item.adId, item.name].includes(value)) this.formData.adId = item.adId
+        if ([item.ad, item.adId, item.name].includes(value)) this.formData.adName = item.name
       })
     },
     // 分页
@@ -378,6 +379,8 @@ export default {
       this.$API.getEditForm(id).then(({ code, data }) => {
         if (code === 0) {
           this.modeLoading = false
+          data.startHour = this.filterHour(data.startHour)
+          data.endHour = this.filterHour(data.endHour)
           this.formData = data
         }
       })
@@ -398,15 +401,18 @@ export default {
       } else if (type === 'openOperation') {
         this.compareDate(this.formData)
         const methodName = this.operationType === 'add' ? 'postPlan' : 'putEdit'
-
         this.$refs.operationForm.validate((vaild) => {
           if (!vaild) return
           this.btnLoading = true
           let params = JSON.parse(JSON.stringify(this.formData))
-          // console.log(params);
+          console.log(params);
+          // params.adName = this.$refs.planItem.$el.innerText
+          params.startHour = params.startHour - 0
+          params.endHour = params.endHour - 0
+          console.log(typeof params.startHour, typeof params.endHour);
           params.promoterId = this.rowData.promoterId
           params.promoterName = this.rowData.promoterName
-          // console.log(params);
+          console.log(params);
           this.$API[methodName](params).then(({ code, data, msg }) => {
             if (code === 0) {
               this.$message.success('新建成功', 1.5)
@@ -428,6 +434,7 @@ export default {
     },
     // 比较日期
     compareDate ({ startDate, endDate, startHour, endHour }) {
+      console.log(startHour, endHour);
       this.nullValue = false
       if (!startDate || !startHour || !endDate || !endHour) {
         this.nullValue = true
@@ -435,8 +442,8 @@ export default {
       }
       let oneDate = new Date(startDate)
       var twoDate = new Date(endDate)
-      let SI = startHour.substring(6, 8)
-      let EI = endHour.substring(6, 8)
+      let SI = startHour
+      let EI = endHour
       if (
         oneDate.getTime() > twoDate.getTime() ||
         (oneDate.getTime() === twoDate.getTime() && SI >= EI)
@@ -456,7 +463,7 @@ export default {
           <div>
             <p>确定要删除?</p>
             <p>计划：{adId}</p>
-            <p>关联时段：{startDate} {startHour} ~ {endDate} {endHour}</p>
+            <p>关联时段：{startDate} {this.filterHour(startHour)} ~ {endDate} {this.filterHour(endHour)}</p>
           </div>
         ),
         onOk () {
