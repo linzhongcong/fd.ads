@@ -28,11 +28,7 @@
                     @search="(value) => productionFuzzySearch(value, 'planSearch')"
                     @change="changePlanName"
                     placeholder="计划ID/计划名称"
-<<<<<<< HEAD
                     style="width: 38%"
-=======
-                    style="width: 20%"
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
                     dropdownClassName="select-drop-down">
             <a-spin v-if="fetching"
                     slot="notFoundContent"
@@ -51,11 +47,7 @@
                           :allow-clear="true"
                           format="YYYY.MM.DD"
                           separator="至"
-<<<<<<< HEAD
                           style="width: 28%"
-=======
-                          style="width: 40%"
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
                           @change="changeDatePick">
             <a-icon slot="suffixIcon"
                     type="calendar" />
@@ -123,11 +115,7 @@
                       @search="(value) => productionFuzzySearch(value, 'selectPlan')"
                       @change="changeModePlan"
                       placeholder="计划ID/计划名称"
-<<<<<<< HEAD
                       style="width: 278px">
-=======
-                      style="width: 180px">
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
               <a-spin v-if="fetching"
                       slot="notFoundContent"
                       size="small" />
@@ -201,10 +189,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-import { log } from '@antv/g2plot/lib/utils'
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
 import { getDateRange, debounce } from '~/utils/utils'
 import { relationPlanTable } from './columns'
 export default {
@@ -318,19 +302,11 @@ export default {
       })
     },
     // 模糊搜索
-<<<<<<< HEAD
     productionFuzzySearch (queryName, array) {
       if (queryName === '' || !queryName.trim()) return (this[array] = [])
       this.fetching = true
       this.$API
         .searchPlan({ queryName })
-=======
-    productionFuzzySearch (queName, array) {
-      if (queName === '' || !queName.trim()) return (this[array] = [])
-      this.fetching = true
-      this.$API
-        .searchPlan({ queName })
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
         .then(({ code, data }) => {
           this.fetching = false
           if (code === 0) this[array] = data
@@ -360,15 +336,10 @@ export default {
     },
     // 弹窗计划名称选择
     changeModePlan (value) {
-<<<<<<< HEAD
       console.log(value);
       this.selectPlan.map((item) => {
         if ([item.ad, item.adId, item.name].includes(value)) this.formData.adId = item.adId
         if ([item.ad, item.adId, item.name].includes(value)) this.formData.adName = item.name
-=======
-      this.selectPlan.map((item) => {
-        if ([item.ad, item.adId, item.name].includes(value)) this.formData.adId = item.adId
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
       })
     },
     // 分页
@@ -434,18 +405,11 @@ export default {
           if (!vaild) return
           this.btnLoading = true
           let params = JSON.parse(JSON.stringify(this.formData))
-<<<<<<< HEAD
           console.log(params);
           // params.adName = this.$refs.planItem.$el.innerText
           params.startHour = params.startHour - 0
           params.endHour = params.endHour - 0
           console.log(typeof params.startHour, typeof params.endHour);
-=======
-          params.adName = this.$refs.planItem.$el.innerText
-          params.startHour = params.startHour - 0
-          params.endHour = params.endHour - 0
-          console.log(typeof params.startHour,typeof params.endHour);
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
           params.promoterId = this.rowData.promoterId
           params.promoterName = this.rowData.promoterName
           console.log(params);
@@ -470,16 +434,11 @@ export default {
     },
     // 比较日期
     compareDate ({ startDate, endDate, startHour, endHour }) {
-<<<<<<< HEAD
       console.log(startHour, endHour);
-=======
-      console.log(startHour,endHour);
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
       this.nullValue = false
       if (!startDate || !startHour || !endDate || !endHour) {
         this.nullValue = true
         return false
-<<<<<<< HEAD
       }
       let oneDate = new Date(startDate)
       var twoDate = new Date(endDate)
@@ -490,8 +449,6 @@ export default {
         (oneDate.getTime() === twoDate.getTime() && SI >= EI)
       ) {
         this.triggerRules = true
-=======
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
       }
       let oneDate = new Date(startDate)
       var twoDate = new Date(endDate)
@@ -507,12 +464,9 @@ export default {
     filterHour (value) {
       return value < 10 ? `0${value}` : value
     },
-<<<<<<< HEAD
     filterHour (value) {
       return value < 10 ? `0${value}` : value
     },
-=======
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
     // 删除某条计划
     deletePromotionItem ({ id, adId, startDate, endDate, startHour, endHour }) {
       const that = this
@@ -522,11 +476,7 @@ export default {
           <div>
             <p>确定要删除?</p>
             <p>计划：{adId}</p>
-<<<<<<< HEAD
             <p>关联时段：{startDate} {this.filterHour(startHour)} ~ {endDate} {this.filterHour(endHour)}</p>
-=======
-            <p>关联时段：{startDate} {startHour} ~ {endDate} {endHour}</p>
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
           </div>
         ),
         onOk () {
@@ -551,18 +501,6 @@ export default {
 .newAdd {
   margin-left: 26px;
 }
-<<<<<<< HEAD
-=======
-:global{
-  .select-drop-down{
-    .ant-select-dropdown-menu,.ant-select-dropdown-menu-root,.ant-select-dropdown-menu-vertical{
-      li:hover{
-        width: 500px !important;
-      }
-    }
-  }
-}
->>>>>>> c60c363e61e82e63b1a84b5aff4e171c23419ea1
 .mt {
   margin-top: 25px;
 }
