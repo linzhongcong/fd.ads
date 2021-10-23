@@ -1,7 +1,7 @@
 <!--
  * @Author: haungjianhan
  * @Date: 2021-05-26 15:23:55
- * @LastEditTime: 2021-06-16 11:13:32
+ * @LastEditTime: 2021-09-18 16:30:28
  * @LastEditors: Please set LastEditors
  * @Description: 创意视频类型模板
  * @FilePath: \ads.fandow.com\pages\create-ad-creativity\third-components\creativity-video-template.vue
@@ -318,7 +318,7 @@
               </div>
               <!-- 下拉框 -->
               <a-select :default-value="promotionSelectData[0].value" style="width: 100%">
-                <a-select-option v-for="item in promotionSelectData" :value="item.value">
+                <a-select-option v-for="item in promotionSelectData" :value="item.value" :key="item.value">
                   {{ item.label }}
                 </a-select-option>
               </a-select>

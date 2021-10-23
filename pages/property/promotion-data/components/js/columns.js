@@ -1,0 +1,470 @@
+/*
+ * @Author: your xieguiting
+ * @Date: 2021-09-16 13:37:30
+ * @LastEditTime: 2021-09-16 14:15:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \ads.fandow.com\pages\property\promotion-data\columns.js
+ */
+
+// 抖音巨量-广告计划 
+export const tiktokEnormousColumns = [
+  {
+    title: '计划ID',
+    dataIndex: 'adId',
+    key: 'adId',
+    width: 180,
+    fixed: 'left',
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '计划名称',
+    dataIndex: 'name',
+    key: 'name',
+    width: 250,
+    ellipsis: true,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '账户ID',
+    dataIndex: 'advertiserId',
+    key: 'advertiserId',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '消耗',
+    dataIndex: 'cost',
+    key: 'cost',
+    width: 180,
+    scopedSlots: { customRender: 'cost' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '成交',
+    dataIndex: 'totalDeal',
+    key: 'totalDeal',
+    width: 180,
+    scopedSlots: { customRender: 'totalDeal' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '商品',
+    dataIndex: 'productName',
+    key: 'productName',
+    width: 250,
+    ellipsis: true,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '推广位',
+    dataIndex: 'promoterName',
+    key: 'promoterName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投放人员',
+    dataIndex: 'realName',
+    key: 'realName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 120,
+    fixed: 'right',
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+]
+// 抖音巨量-每日数据
+export const tiktokEnormousDayColumns = [
+  {
+    title: '计划ID',
+    dataIndex: 'adId',
+    key: 'adId',
+    width: 180,
+    fixed: 'left',
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '日期',
+    dataIndex: 'statDatetime',
+    key: 'statDatetime',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '计划名称',
+    dataIndex: 'name',
+    key: 'name',
+    width: 180,
+    ellipsis: true,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '账户ID',
+    dataIndex: 'advertiserId',
+    key: 'advertiserId',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '消耗',
+    dataIndex: 'cost',
+    key: 'cost',
+    width: 180,
+    scopedSlots: { customRender: 'cost' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '成交',
+    dataIndex: 'totalDeal',
+    key: 'totalDeal',
+    scopedSlots: { customRender: 'totalDeal' },
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '商品',
+    dataIndex: 'productName',
+    key: 'productName',
+    width: 180,
+    ellipsis: true,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '推广位',
+    dataIndex: 'promoterName',
+    key: 'promoterName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投放人员',
+    dataIndex: 'realName',
+    key: 'realName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 120,
+    fixed: 'right',
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+]
+// 抖音内容服务&内容热推
+export const tiktokSeveiceAndHeatColumns = [
+  {
+    title: '计划ID',
+    dataIndex: 'adId',
+    key: 'adId',
+    width: 180,
+    fixed: 'left',
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'dte',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '视频编号',
+    dataIndex: 'videoNum',
+    key: 'videoNum',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '视频简称',
+    dataIndex: 'videoAs',
+    key: 'videoAs',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '视频链接',
+    dataIndex: 'videoLinks',
+    key: 'videoLinks',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投放账号',
+    dataIndex: 'account',
+    key: 'account',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '推广位',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '出价',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 100,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: 'CPM个数',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '消耗',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 100,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '总CPM数',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '备注',
+    dataIndex: 'promotion ',
+    key: 'promotion ',
+    width: 200,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+]
+
+export const kwaiColumns = [
+  {
+    title: '计划ID',
+    dataIndex: 'planID',
+    key: 'planID',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '计划名称',
+    dataIndex: 'planName',
+    key: 'planName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '账户ID',
+    dataIndex: 'accountId',
+    key: 'accountId',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '消耗',
+    dataIndex: 'consume',
+    key: 'consume',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '商品',
+    dataIndex: 'shop',
+    key: 'shop',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '推广位',
+    dataIndex: 'extension',
+    key: 'extension',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投放人员',
+    dataIndex: 'Launch',
+    key: 'Launch',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 120,
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+]
+
+export const aliudColumns = [
+  {
+    title: '计划ID',
+    dataIndex: 'planID',
+    key: 'planID',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '计划名称',
+    dataIndex: 'planName',
+    key: 'planName',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '账户ID',
+    dataIndex: 'accountId',
+    key: 'accountId',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投放人员',
+    dataIndex: 'Launch',
+    key: 'Launch',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '消耗',
+    dataIndex: 'consume',
+    key: 'consume',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '展示量',
+    dataIndex: 'volume',
+    key: 'volume',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '千次展现成本',
+    dataIndex: 'costing',
+    key: 'costing',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '点击量',
+    dataIndex: 'hits',
+    key: 'hits',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '点击率',
+    dataIndex: 'rate',
+    key: 'rate',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '拍下订单金额',
+    dataIndex: 'bidAmount',
+    key: 'bidAmount',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+
+  {
+    title: '成交订单金额',
+    dataIndex: 'bargainAmount',
+    key: 'bargainAmount',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '投资回报率',
+    dataIndex: 'investment',
+    key: 'investment',
+    width: 180,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 120,
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa' } }),
+  },
+]
+
+// 账号同步
+export const accountTable = [
+  {
+    title: '序号',
+    dataIndex: 'order',
+    key: 'order',
+    ellipsis: true,
+    width: 30,
+    customRender: (text, record, idx) => ++idx,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '账户ID',
+    dataIndex: 'advertiserId',
+    key: 'advertiserId',
+    ellipsis: true,
+    width: 100,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '账户名称',
+    dataIndex: 'advertiserName',
+    key: 'advertiserName',
+    ellipsis: true,
+    width: 160,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '当前负责人',
+    dataIndex: 'realName',
+    key: 'realName',
+    ellipsis: true,
+    width: 100,
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+  {
+    title: '操作',
+    dataIndex: 'operate',
+    key: 'operate',
+    width: 60,
+    scopedSlots: { customRender: 'operate' },
+    customHeaderCell: () => ({ style: { backgroundColor: '#f5f7fa', height: '47px' } }),
+  },
+]

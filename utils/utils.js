@@ -1,7 +1,7 @@
 /*
  * @Author: lizheng
  * @Date: 2020-11-13 09:46:13
- * @LastEditTime: 2021-07-22 17:46:53
+ * @LastEditTime: 2021-09-27 10:16:37
  * @LastEditors: Please set LastEditors
  * @Description: 公共方法
  * @FilePath: \oms\utils\utils.js
@@ -333,4 +333,18 @@ export const copyText = (text, callback) => {
   document.execCommand('Copy')
   document.getElementsByTagName('html')[0].removeChild(generateDom)
   callback()
+}
+
+// 小数点后两位补零
+export const strPointTwo = (value) => {
+  let tempArr
+  if(value)  {
+    tempArr = value.toString().split(".")
+    tempArr.length === 1 && (value = value.toString() + ".00")
+    tempArr.length > 1 && tempArr[1].length < 2 && (value = value.toString() + "0")
+    tempArr.length > 1 && !tempArr[1] && (value = value.toString() + "0")
+  } else {
+    value = '0.00'
+  }
+  return value
 }

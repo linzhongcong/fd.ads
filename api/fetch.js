@@ -1,7 +1,7 @@
 /*
  * @Author: lizheng
  * @Date: 2021-01-27 15:10:41
- * @LastEditTime: 2021-04-22 10:10:32
+ * @LastEditTime: 2021-09-28 08:37:33
  * @LastEditors: Please set LastEditors
  * @Description: 封装Axios以及进行接口报错拦截
  * @FilePath: \ads\api\fetch.js
@@ -28,7 +28,7 @@ const fetch = (options) => {
       },
       (err) => {
         notification.error({
-          message: '请求接口失败',
+          message: '请求失败',
           description: err,
         })
         return Promise.reject(err)
@@ -40,13 +40,12 @@ const fetch = (options) => {
       .then((res) => {
         const { data } = res
         // 请求成功时,根据业务判断状态
-        if (res.data.code !== 0) {
+        if (res.data.code !== 0 && Object.prototype.toString.call(data) !== '[object Blob]') {
           notification.error({
-            message: '接口请求报错',
+            message: '错误',
             duration: 2,
             description: data && data.message ? `详情：${data.message}` : '详情：暂无',
           })
-
           // token失效跳转登录页
           if (res.data.code === 41005) {
             setTimeout(() => {

@@ -28,8 +28,7 @@
                     @search="(value) => productionFuzzySearch(value, 'planSearch')"
                     @change="changePlanName"
                     placeholder="计划ID/计划名称"
-                    style="width: 38%"
-                    dropdownClassName="select-drop-down">
+                    style="width: 38%">
             <a-spin v-if="fetching"
                     slot="notFoundContent"
                     size="small" />
@@ -295,7 +294,6 @@ export default {
       this.$API.getRelevancyPlan(params).then(({ code, data }) => {
         this.loadingTable = false
         if (code === 0) {
-          console.log(data);
           this.pagination.total = data.pageCount
           this.relationPlanData = data.list
         }
@@ -329,14 +327,12 @@ export default {
     },
     // 计划名称选择
     changePlanName (value) {
-      console.log(value);
       this.planSearch.map((item) => {
         if ([item.ad, item.adId, item.name].includes(value)) this.screenData.adId = item.adId
       })
     },
     // 弹窗计划名称选择
     changeModePlan (value) {
-      console.log(value);
       this.selectPlan.map((item) => {
         if ([item.ad, item.adId, item.name].includes(value)) this.formData.adId = item.adId
         if ([item.ad, item.adId, item.name].includes(value)) this.formData.adName = item.name
@@ -396,7 +392,6 @@ export default {
     // 提交
     submit (type) {
       if (type === 'openPopup') {
-        console.log(this.screenData)
         this.openPopup = false
       } else if (type === 'openOperation') {
         this.compareDate(this.formData)
@@ -405,14 +400,10 @@ export default {
           if (!vaild) return
           this.btnLoading = true
           let params = JSON.parse(JSON.stringify(this.formData))
-          console.log(params);
-          // params.adName = this.$refs.planItem.$el.innerText
           params.startHour = params.startHour - 0
           params.endHour = params.endHour - 0
-          console.log(typeof params.startHour, typeof params.endHour);
           params.promoterId = this.rowData.promoterId
           params.promoterName = this.rowData.promoterName
-          console.log(params);
           this.$API[methodName](params).then(({ code, data, msg }) => {
             if (code === 0) {
               this.$message.success('新建成功', 1.5)
@@ -434,7 +425,6 @@ export default {
     },
     // 比较日期
     compareDate ({ startDate, endDate, startHour, endHour }) {
-      console.log(startHour, endHour);
       this.nullValue = false
       if (!startDate || !startHour || !endDate || !endHour) {
         this.nullValue = true
@@ -450,19 +440,6 @@ export default {
       ) {
         this.triggerRules = true
       }
-      let oneDate = new Date(startDate)
-      var twoDate = new Date(endDate)
-      let SI = startHour
-      let EI = endHour
-      if (
-        oneDate.getTime() > twoDate.getTime() ||
-        (oneDate.getTime() === twoDate.getTime() && SI >= EI)
-      ) {
-        this.triggerRules = true
-      }
-    },
-    filterHour (value) {
-      return value < 10 ? `0${value}` : value
     },
     filterHour (value) {
       return value < 10 ? `0${value}` : value
@@ -499,7 +476,7 @@ export default {
   margin-right: 8px;
 }
 .newAdd {
-  margin-left: 26px;
+  float: right;
 }
 .mt {
   margin-top: 25px;

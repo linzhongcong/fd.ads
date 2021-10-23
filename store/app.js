@@ -27,6 +27,8 @@ export const state = () => {
       productView: false, // 账户管理 - 产品
       personView: false, // 报表 - 人员报表
       personSqueezeVisible: false, // 资产中心 - 个人落地页
+      manualSetupVisible: false, // 资产中心 - 推广数据 - 抖音-设置
+      salesSessionData: false, // 资产中心-时段数据弹框
     },
   }
 }

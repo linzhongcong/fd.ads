@@ -1,7 +1,7 @@
 <!--
  * @Author: huangjianhan
  * @Date: 2021-04-07 10:51:10
- * @LastEditTime: 2021-07-21 17:28:18
+ * @LastEditTime: 2021-09-22 08:39:49
  * @LastEditors: Please set LastEditors
  * @Description: 用户定向
  * @FilePath: \ads.fandow.com\pages\create-ad-plan\components\user-goal.vue
@@ -67,6 +67,7 @@
           <a-radio-group default-value="不限">
             <a-radio-button
               v-for="item in territoryArray"
+              :key="item.value"
               :value="item.value"
               :disabled="item.label === '不限' ? false : true"
             >
@@ -93,7 +94,7 @@
             性别
           </div>
           <a-radio-group default-value="不限">
-            <a-radio-button v-for="item in sexArray" :value="item.value">
+            <a-radio-button v-for="item in sexArray" :value="item.value" :key="item.value">
               {{ item.value }}
             </a-radio-button>
           </a-radio-group>
@@ -118,8 +119,9 @@
           </div>
           <a-radio-group default-value="不限">
             <a-radio-button
-              v-for="item in ageArray"
+              v-for="(item, index) in ageArray"
               :value="item.value"
+              :key="item.value"
               :disabled="item.value === '不限' ? false : true"
             >
               {{ item.value }}
@@ -228,7 +230,8 @@
           </div>
           <a-radio-group default-value="不限">
             <a-radio-button
-              v-for="item in platformArray"
+              v-for="(item, index) in platformArray"
+              :key="item.value"
               :value="item.value"
               :disabled="item.label === '不限' ? false : true"
             >
@@ -343,7 +346,8 @@
             </div>
             <a-radio-group default-value="不限">
               <a-radio-button
-                v-for="item in networkArray"
+                v-for="(item, index) in networkArray"
+                :key="item.value"
                 :value="item.value"
                 :disabled="item.label === '不限' ? false : true"
               >
@@ -371,7 +375,8 @@
             <div class="element-right_style">
               <a-radio-group default-value="不限">
                 <a-radio-button
-                  v-for="item in conversionArray"
+                  v-for="(item, index) in conversionArray"
+                  :key="item.value"
                   :value="item.value"
                   :disabled="item.label === '不限' ? false : true"
                 >
@@ -392,7 +397,8 @@
             </div>
             <a-radio-group default-value="不限">
               <a-radio-button
-                v-for="item in operatorArray"
+                v-for="(item, index) in operatorArray"
+                :key="item.value"
                 :value="item.value"
                 :disabled="item.label === '不限' ? false : true"
               >
@@ -418,7 +424,8 @@
             <div class="element-right_style">
               <a-radio-group default-value="不限">
                 <a-radio-button
-                  v-for="item in newUserArray"
+                  v-for="(item, index) in newUserArray"
+                  :key="item.value"
                   :value="item.value"
                   :disabled="item.label === '不限' ? false : true"
                 >

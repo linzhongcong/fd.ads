@@ -1,7 +1,7 @@
 <!--
  * @Author: huangjianhan
  * @Date: 2021-04-06 17:11:48
- * @LastEditTime: 2021-07-22 17:46:31
+ * @LastEditTime: 2021-09-22 17:05:35
  * @LastEditors: Please set LastEditors
  * @Description: 投放目标
  * @FilePath: \ads.fandow.com\pages\create-ad-plan\components\form-put-in.vue
@@ -37,6 +37,7 @@
           <a-radio-button
             v-for="item in throwArray"
             :value="item.value"
+            :key="item.value"
             @click="setThrowGlabel(item)"
           >
             {{ item.label }}
@@ -125,7 +126,7 @@
               }
             "
           >
-            <a-select-option v-for="item in transformGlobal" :value="item.value">
+            <a-select-option v-for="item in transformGlobal" :value="item.value" :key="item.value">
               {{ item.label }}
             </a-select-option>
           </a-select>
@@ -159,6 +160,7 @@
           <a-select-option
             v-for="item in secondArray"
             :value="item.value"
+            :key="item.value"
             :disabled="item.value === '12' ? false : true"
           >
             {{ item.label }}

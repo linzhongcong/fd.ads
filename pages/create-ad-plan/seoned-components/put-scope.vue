@@ -1,7 +1,7 @@
 <!--
  * @Author: huangjianhan
  * @Date: 2021-05-18 16:31:39
- * @LastEditTime: 2021-06-24 15:42:33
+ * @LastEditTime: 2021-09-22 17:03:09
  * @LastEditors: Please set LastEditors
  * @Description: 投放范围组件
  * @FilePath: \ads.fandow.com\pages\create-ad-plan\seoned-components\put-scope.vue
@@ -50,6 +50,7 @@
           <a-radio-button
             v-for="item in throwTypeObject"
             :value="item.value"
+            :key="item.value"
             @click="setThrowType(item)"
           >
             {{ item.label }}&ensp;

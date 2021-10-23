@@ -1,0 +1,166 @@
+.center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.text-title .count {
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 700;
+}
+.icon-original {
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+.icon-rotate {
+  transform: rotate(-180deg);
+}
+.production-statment {
+  width: calc(100vw - 160px);
+  background-color: #fff;
+}
+.production-statment .filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 70px;
+  padding: 16px 20px;
+}
+.production-statment .filter .title {
+  font-size: 19px;
+  font-weight: bold;
+}
+.production-statment .filter-form {
+  min-width: calc(100% -84px);
+}
+.production-statment .filter-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 100%;
+  padding: 10px 0 10px 20px;
+  border-left: 1px solid #d9d9d9;
+}
+.production-statment .filter-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.production-statment .filter-wrap-item {
+  width: 250px;
+  margin-left: 10px;
+}
+.production-statment-divider {
+  margin: 0;
+  height: 16px;
+  top: unset;
+  color: #eef0f3;
+  background: #eef0f3;
+}
+.production-statment-chart {
+  padding: 0 16px 16px;
+  height: calc(100vh - 208px);
+  overflow-y: auto;
+  background-color: #eef0f3;
+}
+.production-statment-chart .chart-header {
+  width: 100%;
+  height: 90px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.production-statment-chart .chart-statistics {
+  background-color: #eef0f3;
+}
+.production-statment-chart .chart-statistics-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  min-height: 80px;
+  padding: 20px;
+  background-color: #fff;
+}
+.production-statment-chart .chart-statistics-content--left .count {
+  color: #1890ff;
+  font-size: 16px;
+  font-weight: 700;
+}
+.production-statment-chart .chart-statistics-content--right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  border-left: 1.5px solid #d9d9d9;
+}
+.production-statment-chart .chart-statistics-content--right .text-item {
+  height: 100%;
+  width: 180px;
+  margin: 0 20px;
+}
+.production-statment-chart .chart-statistics .chart-content {
+  border-radius: 4px;
+  background-color: #fff;
+}
+.production-statment-chart .chart-statistics .chart-content-pane {
+  padding: 0 20px;
+}
+.production-statment-chart .chart-statistics .chart-content-pane--detail {
+  min-height: 500px;
+}
+.production-statment-chart .chart-statistics .chart-content-pane--detail .plot-contailer {
+  padding: 20px;
+}
+.production-statment-chart .chart-statistics .chart-content-pane--select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.production-statment-chart .chart-statistics .chart-content .link {
+  padding: 0 20px;
+  width: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.production-statment-chart .chart-statistics .chart-content .table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 0 20px;
+  min-height: 60px;
+}
+.production-statment-chart .chart-statistics .chart-content .statistics-table {
+  padding: 0 20px 20px;
+  overflow: auto;
+}
+.production-statment-chart .chart-statistics .chart-content /deep/ .ant-tabs-tab {
+  margin-left: 22px;
+  padding: 12px 0;
+}
+.production-statment-chart .chart-statistics .chart-content /deep/ .ant-tabs-ink-bar-animated {
+  width: 0 !important;
+  margin-left: -2px;
+}
+.production-statment-chart .chart-statistics /deep/ .ant-tabs-bar {
+  margin: 0;
+}
+.production-statment-chart .chart-statistics /deep/ .ant-tabs-nav-wrap {
+  margin-bottom: 0;
+}

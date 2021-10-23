@@ -1,7 +1,7 @@
 <!--
  * @Author: lizheng
  * @Date: 2021-04-15 10:43:58
- * @LastEditTime: 2021-04-15 15:10:41
+ * @LastEditTime: 2021-09-23 15:02:36
  * @LastEditors: Please set LastEditors
  * @Description: 产品模糊搜索组件
  * @FilePath: \ads\components\select-products.vue
@@ -11,7 +11,7 @@
     style="width:90%"
     show-search
     allow-clear
-    placeholder="商品ID/名称"
+    :placeholder="placeholder"
     option-label-prop="label"
     v-model.trim="productName"
     @search="productionFuzzySearch"
@@ -40,6 +40,10 @@
     // 接收来自父元素的值
     props: {
       name: undefined,
+      placeholder: {
+        type: String,
+        default: '商品ID/名称'
+      }
     },
 
     data() {
@@ -60,7 +64,6 @@
     methods: {
       // 模糊搜索发生改变
       handleSelectChange(item) {
-        console.log('kkk', item)
         if (item === '' || item === undefined) return this.$emit('change', undefined, undefined)
         const [id, name] = item.split('/')
         this.$emit('change', name, id)
